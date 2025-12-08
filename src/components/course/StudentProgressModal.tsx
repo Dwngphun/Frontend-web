@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// Import Service
 import { 
   getStudentProgress, 
   updateStudentProgress, 
   NoiDungKhoaHoc 
 } from '../../services/khoahoc.service';
-
-// Import Component Thông báo
 import Notification from '../notification/Notification';
 import "../../styles/StudentProgressModal.css"
 
@@ -16,7 +13,7 @@ interface Props {
   studentName: string;
   studentId: string;
   onClose: () => void;
-  onUpdateSuccess?: () => void; // <--- 1. THÊM DÒNG NÀY
+  onUpdateSuccess?: () => void; 
 }
 
 const StudentProgressModal: React.FC<Props> = ({ 
@@ -30,19 +27,15 @@ const StudentProgressModal: React.FC<Props> = ({
   const [modules, setModules] = useState<NoiDungKhoaHoc[]>([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-
-  // State cho thông báo popup
   const [notification, setNotification] = useState<{
     message: string;
     type: 'success' | 'error';
   } | null>(null);
 
-  // 1. Load dữ liệu khi mở Modal
   useEffect(() => {
     if (maKhoaHoc && studentId) {
       fetchProgress();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maKhoaHoc, studentId]);
 
   const fetchProgress = async () => {
@@ -58,7 +51,6 @@ const StudentProgressModal: React.FC<Props> = ({
     }
   };
 
-  // 2. Xử lý khi tick checkbox (Chỉ cập nhật State tạm thời, chưa gọi API)
   const handleCheckChange = (id_noi_dung: number) => {
     setModules(prevList => 
       prevList.map(item => {
@@ -72,8 +64,6 @@ const StudentProgressModal: React.FC<Props> = ({
     );
   };
 
-  // 3. Xử lý khi bấm nút "Cập nhật" (Lưu tất cả xuống Server)
-  // 3. SỬA HÀM handleSave
   const handleSave = async () => {
     setSaving(true);
     setNotification(null);
@@ -88,17 +78,11 @@ const StudentProgressModal: React.FC<Props> = ({
       );
 
       await Promise.all(requests);
-
-      // Báo cho trang cha biết để reload lại thanh tiến độ
       if (onUpdateSuccess) {
         onUpdateSuccess();
       }
 
-      // Hiện thông báo thành công
       setNotification({ message: 'Cập nhật tiến độ thành công!', type: 'success' });
-      
-      // (Tuỳ chọn) Tự động đóng sau 1.5s nếu muốn
-      // setTimeout(onClose, 1500);
 
     } catch (error) {
       console.error("Lỗi lưu tiến độ:", error);
