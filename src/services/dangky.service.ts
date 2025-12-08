@@ -1,10 +1,4 @@
-// File: src/services/dangky.service.ts
 import apiClient from './api';
-
-// ==========================================
-// 1. CÁC INTERFACE (KIỂU DỮ LIỆU)
-// ==========================================
-
 /**
  * Interface cho thông tin học viên trong danh sách đăng ký
  * (Dùng cho trang Cấp chứng chỉ)
@@ -15,8 +9,6 @@ export interface EnrollmentInfo {
   ket_qua: 'ĐẠT' | 'KHÔNG ĐẠT' | 'CHƯA CẬP NHẬT';
   ngay_dang_ky?: string; // Có thể bổ sung thêm nếu cần hiển thị
 }
-
-
 // Interface cho Lịch sử khóa học của học viên
 export interface StudentCourseHistory {
   ma_khoa_hoc: string;
@@ -30,13 +22,12 @@ export interface StudentCourseHistory {
 }
 
 /**
- * Dữ liệu gửi đi khi GHI DANH (Đăng ký mới)
+ * Dữ liệu gửi đi khi GHI DANH
  */
 type RegisterDTO = {
   ma_hoc_vien: string;
   ma_khoa_hoc: string;
 };
-
 /**
  * Dữ liệu gửi đi khi CẬP NHẬT KẾT QUẢ (Cấp chứng chỉ)
  */
@@ -45,11 +36,6 @@ type UpdateResultDTO = {
   ma_khoa_hoc: string;
   ket_qua: 'ĐẠT' | 'KHÔNG ĐẠT' | 'CHƯA CẬP NHẬT';
 };
-
-// ==========================================
-// 2. CÁC HÀM GỌI API NGHIỆP VỤ ĐĂNG KÝ
-// ==========================================
-
 /**
  * Ghi danh học viên vào khóa học
  * API: POST /api/dangky
@@ -67,7 +53,6 @@ export const registerStudentToCourse = async (data: RegisterDTO) => {
     }
   }
 };
-
 /**
  * Cập nhật kết quả cuối khóa (ĐẠT / KHÔNG ĐẠT)
  * API: PUT /api/dangky
@@ -99,7 +84,6 @@ export const getEnrollmentsByCourse = async (ma_kh: string) => {
     throw new Error(error.response?.data?.error || 'Lỗi tải danh sách');
   }
 };
-
 // 2. Hàm lấy ĐỦ ĐIỀU KIỆN (Dùng cho CapNhatKetQuaPage.tsx)
 export const getEligibleStudents = async (ma_kh: string) => {
   try {
@@ -110,8 +94,7 @@ export const getEligibleStudents = async (ma_kh: string) => {
     throw new Error(error.response?.data?.error || 'Lỗi tải danh sách đủ điều kiện');
   }
 };
-
-// (MỚI) Lấy danh sách khóa học đã đăng ký của 1 học viên
+//Lấy danh sách khóa học đã đăng ký của 1 học viên
 export const getCoursesByStudent = async (ma_hv: string) => {
   try {
     const response = await apiClient.get<StudentCourseHistory[]>(`/dangky/hocvien/${ma_hv}`);

@@ -4,12 +4,10 @@ import { getStatsByThuongTru, StatsThuongTru } from '../services/thongke.service
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
-
 const ThongKeThuongTruPage = () => {
   const [data, setData] = useState<StatsThuongTru[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,14 +21,11 @@ const ThongKeThuongTruPage = () => {
     };
     fetchData();
   }, []);
-
   return (
     <div className="page-container">
       <h2>Thống kê Học viên theo Thường trú</h2>
       <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
-
       {error && <p style={{ color: 'red' }}>Lỗi: {error}</p>}
-
       {loading ? (
         <p>Đang tải dữ liệu...</p>
       ) : (
@@ -62,7 +57,6 @@ const ThongKeThuongTruPage = () => {
               <p style={{ textAlign: 'center' }}>Không đủ dữ liệu để vẽ biểu đồ.</p>
             )}
           </div>
-
           <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
           <h3>Dữ liệu chi tiết</h3>
           <table className="styled-table">
@@ -92,5 +86,4 @@ const ThongKeThuongTruPage = () => {
     </div>
   );
 };
-
 export default ThongKeThuongTruPage;

@@ -1,12 +1,9 @@
-// File: src/services/tinhthanh.service.ts
 import apiClient from './api';
-
 // 1. Định nghĩa kiểu dữ liệu (Interface) cho TinhThanh
 export interface TinhThanh {
   ma_tinh: string;
   ten_tinh: string;
 }
-
 // 2. Hàm gọi API GET /api/tinhthanh
 export const getAllTinhThanh = async () => {
   try {

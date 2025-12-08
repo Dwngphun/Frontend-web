@@ -1,39 +1,24 @@
-/*
- * File: thongke.service.ts
- * Nhiệm vụ:
- * 1. Cung cấp các hàm để "nói chuyện" với API Thống Kê (/api/thongke) của Backend.
- * 2. Định nghĩa các kiểu dữ liệu (Interface) cho các loại báo cáo.
- * 3. Gói gọn logic gọi API (sử dụng apiClient) và xử lý lỗi.
- */
-
+/*Nhiệm vụ:
+ 1. Cung cấp các hàm để "nói chuyện" với API Thống Kê (/api/thongke) của Backend.
+ 2. Định nghĩa các kiểu dữ liệu (Interface) cho các loại báo cáo.
+ 3. Gói gọn logic gọi API (sử dụng apiClient) và xử lý lỗi */
 import apiClient from './api';
 
-// --- 1. ĐỊNH NGHĨA CÁC KIỂU DỮ LIỆU (TYPES/INTERFACES) ---
-
-/**
- * Interface (Kiểu) cho dữ liệu Thống kê Tổng quan (Dashboard)
- * (API: GET /api/thongke/dashboard)
- */
+/*Interface (Kiểu) cho dữ liệu Thống kê Tổng quan (Dashboard) */
 export interface DashboardStats {
   totalHocVien: number;
   totalKhoaHoc: number;
   totalDangKy: number;
 }
-
-/**
- * Interface (Kiểu) cho dữ liệu Thống kê Quê quán
- * (API: GET /api/thongke/quequan)
- */
+/* (API: GET /api/thongke/quequan)*/
 export interface StatsQueQuan {
   ma_tinh_que_quan: string;
   ten_tinh: string;
   so_luong: number;
 }
 
-/**
- * Interface (Kiểu) cho dữ liệu Thống kê Tỉnh Thường Trú
- * (API: GET /api/thongke/thuongtru)
- */
+/*Interface (Kiểu) cho dữ liệu Thống kê Tỉnh Thường Trú
+ (API: GET /api/thongke/thuongtru)*/
 export interface StatsThuongTru {
   ma_tinh_thuong_tru: string;
   ten_tinh: string;
@@ -65,9 +50,6 @@ export interface StudentHistory {
   ngay_dang_ky: string;
   ket_qua: 'DAT' | 'KHONG DAT' | 'CHUA CAP NHAT';
 }
-
-
-// --- 2. CÁC HÀM GỌI API (Đã được bảo vệ bởi Token) ---
 
 /**
  * API: GET /api/thongke/dashboard
@@ -124,7 +106,7 @@ export const getStatsByThuongTru = async () => {
 /**
  * API: GET /api/thongke/khoahoc?year=...
  * Mục đích: Lấy thống kê khóa học (số lượng Đạt/Không Đạt) theo năm.
- * @param year Năm cần xem (vd: 2025)
+@param year
  */
 export const getStatsByCourse = async (year: number) => {
   try {
@@ -144,7 +126,7 @@ export const getStatsByCourse = async (year: number) => {
 /**
  * API: GET /api/thongke/lichsuhocvien/:ma_hv
  * Mục đích: Lấy lịch sử học tập chi tiết của MỘT học viên.
- * @param ma_hv Mã học viên (vd: 'HV001')
+@param ma_hv
  */
 export const getStudentHistory = async (ma_hv: string) => {
     try {

@@ -5,13 +5,11 @@ import { getStatsByCourse, StatsKhoaHoc } from '../services/thongke.service';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
-
 const ThongKeKhoaHocPage = () => {
   const [data, setData] = useState<StatsKhoaHoc[] | null>(null);
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -28,12 +26,10 @@ const ThongKeKhoaHocPage = () => {
     };
     fetchData();
   }, [year]);
-
   return (
     <div className="page-container">
       <h2>Thống kê Khóa học theo Năm</h2>
       <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
-
       <div className="form-group" style={{ maxWidth: '300px', marginBottom: '20px' }}>
         <label>Chọn năm thống kê:</label>
         <input 
@@ -43,9 +39,7 @@ const ThongKeKhoaHocPage = () => {
           onChange={(e) => setYear(Number(e.target.value))}
         />
       </div>
-
       {error && <p style={{ color: 'red' }}>Lỗi: {error}</p>}
-
       {loading ? (
         <p>Đang tải dữ liệu...</p>
       ) : (
@@ -82,7 +76,6 @@ const ThongKeKhoaHocPage = () => {
               <p style={{ textAlign: 'center' }}>Không có dữ liệu khóa học cho năm {year}.</p>
             )}
           </div>
-
           <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
           <h3>Dữ liệu chi tiết</h3>
           <table className="styled-table">
@@ -116,5 +109,4 @@ const ThongKeKhoaHocPage = () => {
     </div>
   );
 };
-
 export default ThongKeKhoaHocPage;

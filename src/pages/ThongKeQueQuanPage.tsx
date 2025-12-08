@@ -4,7 +4,6 @@ import { getStatsByHometown, StatsQueQuan } from '../services/thongke.service';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
-
 const ThongKeQueQuanPage = () => {
   const [data, setData] = useState<StatsQueQuan[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -23,14 +22,11 @@ const ThongKeQueQuanPage = () => {
     };
     fetchData();
   }, []);
-
   return (
     <div className="page-container">
       <h2>Thống kê Học viên theo Quê quán</h2>
       <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
-
       {error && <p style={{ color: 'red' }}>Lỗi: {error}</p>}
-      
       {loading ? (
         <p>Đang tải dữ liệu...</p>
       ) : (
@@ -62,7 +58,6 @@ const ThongKeQueQuanPage = () => {
               <p style={{ textAlign: 'center' }}>Không đủ dữ liệu để vẽ biểu đồ.</p>
             )}
           </div>
-
           <hr style={{ background: "#888", height: "2px", margin: "20px 0" }} />
           <h3>Dữ liệu chi tiết</h3>
           <table className="styled-table">
@@ -87,6 +82,5 @@ const ThongKeQueQuanPage = () => {
       )}
     </div>
   );
-};
-
+}
 export default ThongKeQueQuanPage;

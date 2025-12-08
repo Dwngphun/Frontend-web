@@ -1,8 +1,5 @@
-// File: src/components/common/Notification.tsx
 import React, { useEffect } from 'react';
-import '../../styles/notification.css'; // Import file CSS
-
-// 1. Định nghĩa Props (dữ liệu đầu vào)
+import '../../styles/notification.css';
 interface NotificationProps {
   message: string;
   type: 'success' | 'error';
@@ -16,15 +13,13 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose }) =
     // Tạo một bộ đếm thời gian
     const timer = setTimeout(() => {
       onClose(); // Gọi hàm onClose
-    }, 5000); // 5000 mili-giây = 5 giây
-
-    // Dọn dẹp: Hủy bộ đếm nếu component bị gỡ (unmount)
+    }, 5000);
+    //Hủy bộ đếm nếu component bị gỡ
     return () => clearTimeout(timer);
   }, [onClose]);
-
   // 3. Giao diện (JSX)
   return (
-    // Áp dụng class CSS "thông minh"
+    // Áp dụng class CSS dựa trên loại thông báo
     <div className={`notification notification-${type}`}>
       {message}
     </div>

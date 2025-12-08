@@ -38,7 +38,6 @@ const DashboardPage = () => {
       ) : (
         <p>Đang tải số liệu thống kê...</p>
       )}
-      
     </div>
   );
 };
