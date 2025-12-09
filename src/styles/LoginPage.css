@@ -1,6 +1,4 @@
-/* File: src/styles/LoginPage.css */
-
-/* 1. Nền cho toàn bộ trang */
+/* Nền cho toàn bộ trang */
 .login-container {
   display: flex;
   justify-content: center;
@@ -9,7 +7,7 @@
   background-color: #f0f2f5;
 }
 
-/* 2. "Thẻ" (Card) chứa form */
+/* "Thẻ" (Card) chứa form */
 .login-form {
   background-color: #ffffff;
   padding: 2.5rem;
@@ -19,7 +17,7 @@
   max-width: 400px;
 }
 
-/* 3. Tiêu đề "Đăng Nhập" */
+/* Tiêu đề "Đăng Nhập" */
 .login-title {
   text-align: center;
   font-size: 2rem;
@@ -33,7 +31,7 @@
   margin-top: 10px;
 }
 
-/* 5. Thông báo lỗi */
+/* Thông báo lỗi */
 .login-error {
   color: #e74c3c;
   text-align: center;

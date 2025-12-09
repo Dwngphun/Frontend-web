@@ -140,7 +140,7 @@ const KhoaHocPage = () => {
           }}>Thêm khóa học mới</button>
       )}
 
-      {/* Form Thêm Mới / Cập Nhật */}
+      {/* Thêm mới, cập nhật */}
       {showForm && (
         <form onSubmit={handleSubmit} className="form-container">
           <h3>{editingMaKH ? 'Cập nhật khóa học' : 'Thêm khóa học mới'}</h3>

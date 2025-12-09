@@ -1,10 +1,8 @@
-/*Nhiệm vụ:
- 1. Cung cấp các hàm để "nói chuyện" với API Thống Kê (/api/thongke) của Backend.
- 2. Định nghĩa các kiểu dữ liệu (Interface) cho các loại báo cáo.
- 3. Gói gọn logic gọi API (sử dụng apiClient) và xử lý lỗi */
+/*Định nghĩa các kiểu dữ liệu (Interface) cho các loại báo cáo.
+  Gói gọn logic gọi API (sử dụng apiClient) và xử lý lỗi */
 import apiClient from './api';
 
-/*Interface (Kiểu) cho dữ liệu Thống kê Tổng quan (Dashboard) */
+/* Interface cho dữ liệu Thống kê Tổng quan (Dashboard) */
 export interface DashboardStats {
   totalHocVien: number;
   totalKhoaHoc: number;
@@ -17,7 +15,7 @@ export interface StatsQueQuan {
   so_luong: number;
 }
 
-/*Interface (Kiểu) cho dữ liệu Thống kê Tỉnh Thường Trú
+/* Interface cho dữ liệu Thống kê Tỉnh Thường Trú
  (API: GET /api/thongke/thuongtru)*/
 export interface StatsThuongTru {
   ma_tinh_thuong_tru: string;
@@ -25,10 +23,8 @@ export interface StatsThuongTru {
   so_luong: number;
 }
 
-/**
- * Interface (Kiểu) cho dữ liệu Thống kê Khóa học (theo năm)
- * (API: GET /api/thongke/khoahoc)
- */
+/* Interface cho dữ liệu Thống kê Khóa học (theo năm)
+ (API: GET /api/thongke/khoahoc)*/
 export interface StatsKhoaHoc {
   ma_khoa_hoc: string;
   ten_khoa: string;
@@ -38,10 +34,8 @@ export interface StatsKhoaHoc {
   so_luong_khong_dat: number;
 }
 
-/**
- * Interface (Kiểu) cho dữ liệu Lịch sử Học tập
- * (API: GET /api/thongke/lichsuhocvien/:ma_hv)
- */
+/* Interface (Kiểu) cho dữ liệu Lịch sử Học tập
+ (API: GET /api/thongke/lichsuhocvien/:ma_hv)*/
 export interface StudentHistory {
   ma_khoa_hoc: string;
   ten_khoa: string;
@@ -51,10 +45,8 @@ export interface StudentHistory {
   ket_qua: 'DAT' | 'KHONG DAT' | 'CHUA CAP NHAT';
 }
 
-/**
- * API: GET /api/thongke/dashboard
- * Mục đích: Lấy 3 số liệu thống kê nhanh cho trang Tổng quan.
- */
+/*API: GET /api/thongke/dashboard
+ Mục đích: Lấy 3 số liệu thống kê nhanh cho trang Tổng quan.*/
 export const getDashboardStats = async () => {
   try {
     const response = await apiClient.get<DashboardStats>('/thongke/dashboard');
@@ -68,10 +60,8 @@ export const getDashboardStats = async () => {
   }
 };
 
-/**
- * API: GET /api/thongke/quequan
- * Mục đích: Lấy thống kê số lượng học viên theo quê quán.
- */
+/*API: GET /api/thongke/quequan
+ Mục đích: Lấy thống kê số lượng học viên theo quê quán.*/
 export const getStatsByHometown = async () => {
   try {
     const response = await apiClient.get<StatsQueQuan[]>('/thongke/quequan');
@@ -85,16 +75,13 @@ export const getStatsByHometown = async () => {
   }
 };
 
-/**
- * API: GET /api/thongke/thuongtru
- * Mục đích: Lấy thống kê số lượng học viên theo tỉnh thường trú.
- */
+/* API: GET /api/thongke/thuongtru
+ Mục đích: Lấy thống kê số lượng học viên theo tỉnh thường trú.*/
 export const getStatsByThuongTru = async () => {
   try {
     const response = await apiClient.get<StatsThuongTru[]>('/thongke/thuongtru');
     return response.data;
   } catch (error: any) {
-    // (SỬA LỖI: Bổ sung code xử lý lỗi bị thiếu)
     if (error.response) {
       throw new Error(error.response.data.error || 'Lỗi khi tải thống kê thường trú');
     } else {
@@ -103,11 +90,8 @@ export const getStatsByThuongTru = async () => {
   }
 };
 
-/**
- * API: GET /api/thongke/khoahoc?year=...
- * Mục đích: Lấy thống kê khóa học (số lượng Đạt/Không Đạt) theo năm.
-@param year
- */
+/*API: GET /api/thongke/khoahoc?year=...
+ Mục đích: Lấy thống kê khóa học (số lượng Đạt/Không Đạt) theo năm.*/
 export const getStatsByCourse = async (year: number) => {
   try {
     const response = await apiClient.get<StatsKhoaHoc[]>('/thongke/khoahoc', {
@@ -123,11 +107,8 @@ export const getStatsByCourse = async (year: number) => {
   }
 };
 
-/**
- * API: GET /api/thongke/lichsuhocvien/:ma_hv
- * Mục đích: Lấy lịch sử học tập chi tiết của MỘT học viên.
-@param ma_hv
- */
+/* API: GET /api/thongke/lichsuhocvien/:ma_hv
+  Mục đích: Lấy lịch sử học tập chi tiết của MỘT học viên.*/
 export const getStudentHistory = async (ma_hv: string) => {
     try {
       const response = await apiClient.get<StudentHistory[]>(`/thongke/lichsuhocvien/${ma_hv}`);

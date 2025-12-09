@@ -1,4 +1,3 @@
-// File: src/components/layout/AdminLayout.tsx
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/AdminLayout.css';
@@ -29,7 +28,7 @@ const AdminLayout = () => {
     navigate('/login');
   };
 
-  // --- Kiểm tra highlight menu cha ---
+  // Kiểm tra highlight menu cha 
   const thongKeChildPaths = [
     "/admin/thongke/que-quan",
     "/admin/thongke/thuong-tru",

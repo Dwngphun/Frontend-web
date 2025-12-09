@@ -1,8 +1,5 @@
 import apiClient from './api';
-/**
- * Interface cho thông tin học viên trong danh sách đăng ký
- * (Dùng cho trang Cấp chứng chỉ)
- */
+/* Interface cho thông tin học viên trong danh sách đăng ký (Dùng cho trang Cấp chứng chỉ)*/
 export interface EnrollmentInfo {
   ma_hoc_vien: string;
   ho_ten: string;
@@ -21,25 +18,19 @@ export interface StudentCourseHistory {
   tong_so_bai: number;
 }
 
-/**
- * Dữ liệu gửi đi khi GHI DANH
- */
+/* Dữ liệu gửi đi khi GHI DANH */
 type RegisterDTO = {
   ma_hoc_vien: string;
   ma_khoa_hoc: string;
 };
-/**
- * Dữ liệu gửi đi khi CẬP NHẬT KẾT QUẢ (Cấp chứng chỉ)
- */
+/* Dữ liệu gửi đi khi CẬP NHẬT KẾT QUẢ (Cấp chứng chỉ) */
 type UpdateResultDTO = {
   ma_hoc_vien: string;
   ma_khoa_hoc: string;
   ket_qua: 'ĐẠT' | 'KHÔNG ĐẠT' | 'CHƯA CẬP NHẬT';
 };
-/**
- * Ghi danh học viên vào khóa học
- * API: POST /api/dangky
- */
+/* Ghi danh học viên vào khóa học
+  API: POST /api/dangky */
 export const registerStudentToCourse = async (data: RegisterDTO) => {
   try {
     const response = await apiClient.post('/dangky', data);
@@ -53,10 +44,8 @@ export const registerStudentToCourse = async (data: RegisterDTO) => {
     }
   }
 };
-/**
- * Cập nhật kết quả cuối khóa (ĐẠT / KHÔNG ĐẠT)
- * API: PUT /api/dangky
- */
+/* Cập nhật kết quả cuối khóa 
+  API: PUT /api/dangky */
 export const updateEnrollmentResult = async (data: UpdateResultDTO) => {
   try {
     const response = await apiClient.put('/dangky', data);
@@ -70,11 +59,9 @@ export const updateEnrollmentResult = async (data: UpdateResultDTO) => {
   }
 };
 
-/**
- * Lấy danh sách học viên ĐỦ ĐIỀU KIỆN cấp chứng chỉ
- * (Backend đã lọc: chỉ trả về học viên hoàn thành 100% bài học)
- * API: GET /api/dangky/khoahoc/:ma_kh
- */// 1. Hàm lấy TẤT CẢ (Dùng cho KhoaHocDetailPage.tsx)
+/* Lấy danh sách học viên ĐỦ ĐIỀU KIỆN cấp chứng chỉ
+  API: GET /api/dangky/khoahoc/:ma_kh*/
+// Hàm lấy tất cả (Dùng cho KhoaHocDetailPage.tsx)
 export const getEnrollmentsByCourse = async (ma_kh: string) => {
   try {
     // Gọi route cũ /khoahoc/:ma_kh -> Backend trả về tất cả
@@ -84,7 +71,7 @@ export const getEnrollmentsByCourse = async (ma_kh: string) => {
     throw new Error(error.response?.data?.error || 'Lỗi tải danh sách');
   }
 };
-// 2. Hàm lấy ĐỦ ĐIỀU KIỆN (Dùng cho CapNhatKetQuaPage.tsx)
+// Hàm lấy ĐỦ ĐIỀU KIỆN (Dùng cho CapNhatKetQuaPage.tsx)
 export const getEligibleStudents = async (ma_kh: string) => {
   try {
     // Gọi route mới /du-dieu-kien/:ma_kh
